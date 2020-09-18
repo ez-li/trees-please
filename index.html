@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Display driving directions</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css">
+<script src="js/script.js"></script>
+</head>
+<body>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+<script src="../js/libs/jquery-3.3.1.min.js"></script>
+
+<link
+rel="stylesheet"
+href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+type="text/css"
+/>
+
+<div id="map"></div>
+ 
+<script>
+	// TO MAKE THE MAP APPEAR YOU MUST
+	// ADD YOUR ACCESS TOKEN FROM
+	// https://account.mapbox.com
+	mapboxgl.accessToken = 'pk.eyJ1IjoibGluaHBoYWFhbSIsImEiOiJja2Y4c2Z5N3kwOThuMnRtaHczZ3dnbWFmIn0.8ABZB_jFyTWSj7hd_6Gj5w';
+
+	var geojson = {
+		'type': 'FeatureCollection',
+		'features': [
+			{
+				'type': 'Feature',
+				'properties': {
+					'message': 'Tree 1',
+					'iconSize': [60, 60]
+				},
+				'geometry': {
+					'type': 'Point',
+					'coordinates': [-122.3837697, 37.7441324]
+				}
+			},
+
+			{
+				'type': 'Feature',
+				'properties': {
+					'message': 'Tree 2',
+					'iconSize': [50, 50]
+				},
+				'geometry': {
+					'type': 'Point',
+					'coordinates': [-122.3239636, 37.5535689]
+				}
+			},
+
+			{
+				'type': 'Feature',
+				'properties': {
+					'message': 'Tree 3',
+					'iconSize': [40, 40]
+				},
+				'geometry': {
+					'type': 'Point',
+					'coordinates': [-122.4342911, 37.7371298]
+				}
+			},
+
+			{
+				'type': 'Feature',
+				'properties': {
+					'message': 'Tree 4',
+					'iconSize': [40, 40]
+				},
+				'geometry': {
+					'type': 'Point',
+					'coordinates': [-122.4342911, 37.7371298]
+				}
+			}
+		]
+	};
+
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		center: [-122.3837697, 37.7441324],
+		zoom: 12
+		});
+ 
+	map.addControl(
+	new MapboxDirections({
+	accessToken: mapboxgl.accessToken
+	}),
+	'top-left'
+	);
+
+	geojson.features.forEach(function (marker) {
+		// create a DOM element for the marker
+		var el = document.createElement('div');
+		el.className = 'marker';
+		// el.style.backgroundImage =
+		// 	"url('https://i.redd.it/75bats3t7te01.jpg')";
+		// el.style.backgroundColor =
+		// 'black';
+		el.style.width = marker.properties.iconSize[0] + 'px';
+		el.style.height = marker.properties.iconSize[1] + 'px';
+
+		el.addEventListener('click', function () {
+			window.alert(marker.properties.message);
+			});
+
+		new mapboxgl.Marker(el).setLngLat(marker.geometry.coordinates).addTo(map);
+		// new mapboxgl.Marker(el).setLngLat([-122.3239636, 37.5535689]).addTo(map);
+		// new mapboxgl.Marker(el).setLngLat([-122.4407008, 37.7621085]).addTo(map);
+		// new mapboxgl.Marker(el).setLngLat([-122.4342911, 37.7371298]).addTo(map);
+
+	});
+
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+trackUserLocation: true
+})
+);
+
+
+</script>
+ 
+</body>
+</html>
