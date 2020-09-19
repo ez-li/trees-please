@@ -48,3 +48,11 @@ body {
 .marker:hover .tooltip {
     visibility: visible;    
 }
+
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl-directions {
+    display: none !important;
+}
+
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl-directions:first-child {
+    display: block !important;
+}
