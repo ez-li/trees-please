@@ -9,9 +9,7 @@ var geojson = {
     'features': []
 };
 
-var startAddress = { };
-
-var randomTree = { };
+var startAddress = [37.754740, -122.424460];
 
 d3.csv("../Trees_Lat_Long.csv").then(function(data) {
     var counter = 1;
@@ -31,7 +29,7 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
         geojson['features'].push(feature)
         counter++;
         })
-    console.log(data[0]);
+    // console.log(data[0]);
     // console.log(geojson);
     geojson.features.forEach(function (marker) {
         // create a DOM element for the marker
@@ -60,7 +58,6 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
     });
 });
 
-// console.log(geojson);
 
 var map = new mapboxgl.Map({
     container: 'map',
