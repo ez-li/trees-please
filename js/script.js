@@ -6,7 +6,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibGluaHBoYWFhbSIsImEiOiJja2Y4c2Z5N3kwOThuMnRta
 
 var geojson = {
     'type': 'FeatureCollection',
-    'features': []
+    'features' : []
 };
 
 var startAddress = [37.754740, -122.424460];
@@ -66,16 +66,16 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
 
 });
 
+console.log(geojson.features.properties);
 
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    // style: 'mapbox://styles/mapbox/streets-v11', 
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-122.3837697, 37.7441324],
     zoom: 12,
-    // start: [-122.3837697, 37.7441324],
     });
 
-// var start = [-122.3837697, 37.7441324];
 
 map.addControl(
     new MapboxDirections({
