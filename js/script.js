@@ -93,36 +93,41 @@ map.addControl(geolocate);
 console.log(map);
 
 function getDirections(tree) {
-geolocate.on('geolocate', function() {
-    console.log(geolocate._lastKnownPosition.coords.latitude);
-    console.log(geolocate._lastKnownPosition.coords.longitude);
+    console.log("outerping");
+    geolocate.on('geolocate', function() {
 
-    var directions = new MapboxDirections({
-        accessToken: mapboxgl.accessToken,
-        profile: 'mapbox/walking',
-        controls: {
-            // inputs: false
-        }
+        
+        // var userLocation = [geolocate._lastKnownPosition.coords.longitude, geolocate._lastKnownPosition.coords.latitude];
+        
+        // dummy location for Martha/Linh working outside of SF
+        var userLocation = [-122.424460, 37.754740];
+        var treeLocation = [tree.longitude, tree.latitude];
+
+        console.log("ping");
+        var directions = new MapboxDirections({
+            accessToken: mapboxgl.accessToken,
+            profile: 'mapbox/walking',
+            controls: {
+                inputs: false
+                // instructions: false
+            }
+        });
+
+        map.addControl(directions, 'top-left');
+    
+        directions.setOrigin(userLocation);
+        directions.setDestination(treeLocation); 
+
+        console.log(directions);
+
+        // HERE IS THE TREE POPUP
+        var popup = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat([tree.longitude, tree.latitude])
+        .setHTML('<h3>' + tree.Tree + '</h3>')
+        .addTo(map);  
+
     });
-    
-    // var userLocation = [geolocate._lastKnownPosition.coords.longitude, geolocate._lastKnownPosition.coords.latitude];
-    
-    var userLocation = [-122.424460, 37.754740];
-    var treeLocation = [tree.longitude, tree.latitude];
 
-    map.addControl(directions, 'top-left');
-    directions.setOrigin(userLocation);
-    directions.setDestination(treeLocation);  
-
-    // HERE IS THE TREE POPUP
-    var popup = new mapboxgl.Popup({ closeOnClick: false })
-    .setLngLat([tree.longitude, tree.latitude])
-    .setHTML('<h3>' + tree.Tree + '</h3>')
-    .addTo(map);  
-
-    
-
-});
 };
 
 //idk what this does -Martha
