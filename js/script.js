@@ -10,7 +10,7 @@ var geojson = {
 };
 
 d3.csv("../Trees_Lat_Long.csv").then(function(data) {
-    var counter = 1;
+
     data.forEach(function(d) {
         d.latitude = +d.latitude;
         d.longitude = +d.longitude;
@@ -25,7 +25,7 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
             'coordinates': [d.longitude, d.latitude]
         }
         geojson['features'].push(feature)
-        counter++;
+
         })
     console.log(data[0]);
     // console.log(geojson);
@@ -65,18 +65,27 @@ var map = new mapboxgl.Map({
     zoom: 12
     });
 
-map.addControl(
-new MapboxDirections({
-accessToken: mapboxgl.accessToken
-}),
-'top-left'
-);
+var start = [-122.3837697, 37.7441324];
 
 map.addControl(
-new mapboxgl.GeolocateControl({
-positionOptions: {
-enableHighAccuracy: true
-},
-trackUserLocation: true
-})
+    new MapboxDirections({
+        accessToken: mapboxgl.accessToken
+    }),
+    'top-left'
 );
+
+var geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+});
+
+map.addControl(geolocate);
+
+// get user location when user click the geolocate icon in the top right
+
+geolocate.on('geolocate', function() {
+    console.log(geolocate._lastKnownPosition.coords.latitude);
+    console.log(geolocate._lastKnownPosition.coords.longitude);
+});
