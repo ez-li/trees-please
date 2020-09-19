@@ -9,6 +9,8 @@ var geojson = {
     'features': []
 };
 
+var startAddress = [37.754740, -122.424460];
+
 d3.csv("../Trees_Lat_Long.csv").then(function(data) {
 
     data.forEach(function(d) {
@@ -27,8 +29,14 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
         geojson['features'].push(feature)
 
         })
-    console.log(data[0]);
-    // console.log(geojson);
+
+    var randomTree = data[Math.floor(Math.random() * data.length)];
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([randomTree.longitude, randomTree.latitude])
+    .setHTML('<h3>' + randomTree.Tree + '</h3>')
+    .addTo(map);  
+
     geojson.features.forEach(function (marker) {
         // create a DOM element for the marker
         var el = document.createElement('div');
@@ -54,9 +62,10 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
         new mapboxgl.Marker(el).setLngLat(marker.geometry.coordinates).addTo(map);
     
     });
+
+
 });
 
-// console.log(geojson);
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -89,3 +98,12 @@ geolocate.on('geolocate', function() {
     console.log(geolocate._lastKnownPosition.coords.latitude);
     console.log(geolocate._lastKnownPosition.coords.longitude);
 });
+
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+trackUserLocation: true
+})
+);
