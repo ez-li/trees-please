@@ -9,6 +9,10 @@ var geojson = {
     'features': []
 };
 
+var startAddress = { };
+
+var randomTree = { };
+
 d3.csv("../Trees_Lat_Long.csv").then(function(data) {
     var counter = 1;
     data.forEach(function(d) {
