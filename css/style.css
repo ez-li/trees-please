@@ -16,3 +16,35 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+/* .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  } */
+  
+.tooltip {
+    position: relative;
+    display: inline-block;
+    box-shadow: 2px 2px darkcyan;
+    /* border-bottom: 1px dotted black; */
+    visibility: hidden;
+    width: 100px;
+    background-color: cadetblue;
+    color: aliceblue;
+    font-size: 9px;
+    line-height: 1.4;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+}
+
+.marker:hover .tooltip {
+    visibility: visible;    
+}
