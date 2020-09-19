@@ -29,8 +29,14 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
         geojson['features'].push(feature)
         counter++;
         })
-    // console.log(data[0]);
-    // console.log(geojson);
+
+    var randomTree = data[Math.floor(Math.random() * data.length)];
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([randomTree.longitude, randomTree.latitude])
+    .setHTML('<h3>' + randomTree.Tree + '</h3>')
+    .addTo(map);  
+
     geojson.features.forEach(function (marker) {
         // create a DOM element for the marker
         var el = document.createElement('div');
@@ -56,6 +62,8 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
         new mapboxgl.Marker(el).setLngLat(marker.geometry.coordinates).addTo(map);
     
     });
+
+
 });
 
 
