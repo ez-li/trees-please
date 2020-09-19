@@ -71,10 +71,11 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-122.3837697, 37.7441324],
-    zoom: 12
+    zoom: 12,
+    // start: [-122.3837697, 37.7441324],
     });
 
-var start = [-122.3837697, 37.7441324];
+// var start = [-122.3837697, 37.7441324];
 
 map.addControl(
     new MapboxDirections({

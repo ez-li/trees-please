@@ -12,7 +12,7 @@ body {
     cursor: pointer;
     padding: 0;
     object-fit: cover;
-    background-image: url('http://clipart-library.com/images_k/transparent-leaf-clip-art/transparent-leaf-clip-art-2.png');
+    background-image: url('../leaf.png');
     background-size: contain;
     background-repeat: no-repeat;
 }
