@@ -58,12 +58,6 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
     });
 
     var randomTree = data[Math.floor(Math.random() * data.length)];
-    console.log(randomTree);
-
-    var popup = new mapboxgl.Popup({ closeOnClick: false })
-    .setLngLat([randomTree.longitude, randomTree.latitude])
-    .setHTML('<h3>' + randomTree.Tree + '</h3>')
-    .addTo(map);  
 
     getDirections(randomTree);
 
@@ -75,11 +69,10 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: [-122.3837697, 37.7441324],
-    zoom: 12,
-    // start: [-122.3837697, 37.7441324],
+    zoom: 12
     });
 
-// var start = [-122.3837697, 37.7441324];
+var start = [-122.3837697, 37.7441324];
 
 // map.addControl(
 //     new MapboxDirections({
@@ -112,10 +105,21 @@ geolocate.on('geolocate', function() {
         }
     });
     
+    // var userLocation = [geolocate._lastKnownPosition.coords.longitude, geolocate._lastKnownPosition.coords.latitude];
     
+    var userLocation = [-122.424460, 37.754740];
+    var treeLocation = [tree.longitude, tree.latitude];
+
     map.addControl(directions, 'top-left');
-    map.directions.setOrigin([-122.3837697, 37.7441324]);
-    map.directions.setDestination([-122.3837697, 35.7441324]);   
+    directions.setOrigin(userLocation);
+    directions.setDestination(treeLocation);  
+
+    // HERE IS THE TREE POPUP
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([tree.longitude, tree.latitude])
+    .setHTML('<h3>' + tree.Tree + '</h3>')
+    .addTo(map);  
+
     
 
 });
