@@ -30,12 +30,6 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
 
         })
 
-    var randomTree = data[Math.floor(Math.random() * data.length)];
-
-    var popup = new mapboxgl.Popup({ closeOnClick: false })
-    .setLngLat([randomTree.longitude, randomTree.latitude])
-    .setHTML('<h3>' + randomTree.Tree + '</h3>')
-    .addTo(map);  
 
     geojson.features.forEach(function (marker) {
         // create a DOM element for the marker
@@ -63,6 +57,16 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
     
     });
 
+    var randomTree = data[Math.floor(Math.random() * data.length)];
+    console.log(randomTree);
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([randomTree.longitude, randomTree.latitude])
+    .setHTML('<h3>' + randomTree.Tree + '</h3>')
+    .addTo(map);  
+
+    getDirections(randomTree);
+
 
 });
 
@@ -76,12 +80,12 @@ var map = new mapboxgl.Map({
 
 var start = [-122.3837697, 37.7441324];
 
-map.addControl(
-    new MapboxDirections({
-        accessToken: mapboxgl.accessToken
-    }),
-    'top-left'
-);
+// map.addControl(
+//     new MapboxDirections({
+//         accessToken: mapboxgl.accessToken
+//     }),
+//     'top-left'
+// );
 
 var geolocate = new mapboxgl.GeolocateControl({
     positionOptions: {
@@ -92,18 +96,36 @@ var geolocate = new mapboxgl.GeolocateControl({
 
 map.addControl(geolocate);
 
-// get user location when user click the geolocate icon in the top right
+console.log(map);
 
+function getDirections(tree) {
 geolocate.on('geolocate', function() {
     console.log(geolocate._lastKnownPosition.coords.latitude);
     console.log(geolocate._lastKnownPosition.coords.longitude);
-});
 
-map.addControl(
-new mapboxgl.GeolocateControl({
-positionOptions: {
-enableHighAccuracy: true
-},
-trackUserLocation: true
-})
-);
+    var directions = new MapboxDirections({
+        accessToken: mapboxgl.accessToken,
+        profile: 'mapbox/walking',
+        controls: {
+            // inputs: false
+        }
+    });
+    
+    
+    map.addControl(directions, 'top-left');
+    map.directions.setOrigin([-122.3837697, 37.7441324]);
+    map.directions.setDestination([-122.3837697, 35.7441324]);   
+    
+
+});
+};
+
+//idk what this does -Martha
+// map.addControl(
+// new mapboxgl.GeolocateControl({
+// positionOptions: {
+// enableHighAccuracy: true
+// },
+// trackUserLocation: true
+// })
+// );
