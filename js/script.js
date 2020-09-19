@@ -120,11 +120,11 @@ function getDirections(tree) {
 
         console.log(directions);
 
-        // HERE IS THE TREE POPUP
-        var popup = new mapboxgl.Popup({ closeOnClick: false })
-        .setLngLat([tree.longitude, tree.latitude])
-        .setHTML('<h3>' + tree.Tree + '</h3>')
-        .addTo(map);  
+    // HERE IS THE TREE POPUP
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([tree.longitude, tree.latitude])
+    .setHTML('<div class=“popup”> <h3>' + tree.Tree + '</h3> <img src="./Trees-Please_Images/Acacia_baileyana.JPG" style="width:200px;height=100"> </div>')
+    .addTo(map);  
 
     });
 
