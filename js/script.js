@@ -64,10 +64,10 @@ d3.csv("../Trees_Lat_Long.csv").then(function(data) {
 
 });
 
-
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v11',
+    // style: 'mapbox://styles/mapbox/streets-v11', 
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-122.3837697, 37.7441324],
     zoom: 12
     });
