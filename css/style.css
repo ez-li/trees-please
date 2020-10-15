@@ -56,3 +56,20 @@ body {
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl-directions:first-child {
     display: block !important;
 }
+
+/* added these lines */
+
+/* .hover_image{
+
+}
+*/
+
+.hover_image:target ~ .thank_you_box {
+    display: none;
+}
+
+
+.thank_you_box {
+    display:inline;
+    font-size: 9px;
+}
